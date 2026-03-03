@@ -187,7 +187,7 @@
   <!-- LOGO -->
   <div class="logo-wrap">
     <img
-      id="logo-img"
+      src="https://github.com/user-attachments/assets/8b241a65-31ed-4644-a66e-ea1a9167b4ae"
       alt="Logo 2º BPM/I"
     />
   </div>
@@ -209,7 +209,7 @@
     </a>
 
     <a
-      class="btn btn-ctrl"
+      class class="btn btn-ctrl"
       href="https://forms.gle/8pGX8b8JbQA5WxoRA"
       target="_blank"
       rel="noopener noreferrer"
@@ -225,21 +225,5 @@
   </div>
 
 </div>
-
-<script>
-  (function () {
-    var img = document.getElementById('logo-img');
-    var url = 'https://github.com/user-attachments/assets/8b241a65-31ed-4644-a66e-ea1a9167b4ae';
-
-    fetch(url)
-      .then(function (r) { return r.blob(); })
-      .then(function (blob) {
-        img.src = URL.createObjectURL(blob);
-      })
-      .catch(function () {
-        img.src = url;
-      });
-  })();
-</script>
 </body>
 </html>
