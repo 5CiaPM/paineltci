@@ -26,7 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* grid background */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -36,7 +35,6 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* scanlines */
     body::after {
       content: '';
       position: fixed; inset: 0;
@@ -145,11 +143,8 @@
       touch-action: manipulation;
     }
 
-    .btn:active {
-      transform: scale(.97);
-    }
+    .btn:active { transform: scale(.97); }
 
-    /* Vídeo Instrução – neon azul */
     .btn-video {
       background: linear-gradient(135deg, #080f1e 0%, #0c1a30 100%);
       color: #7ec8ff;
@@ -161,7 +156,6 @@
         inset 0 0 14px rgba(30,144,255,.08);
     }
 
-    /* Controle de Treinamento – neon vermelho */
     .btn-ctrl {
       background: linear-gradient(135deg, #180808 0%, #270b0b 100%);
       color: #ff8899;
@@ -173,10 +167,7 @@
         inset 0 0 14px rgba(255,34,68,.08);
     }
 
-    .btn-icon {
-      font-size: 1.25em;
-      flex-shrink: 0;
-    }
+    .btn-icon { font-size: 1.25em; flex-shrink: 0; }
 
     /* ── FOOTER ── */
     .footer {
@@ -196,9 +187,8 @@
   <!-- LOGO -->
   <div class="logo-wrap">
     <img
-      src="https://github.com/5CiaPM/paineltci/issues/2#issue-4017941202"
+      id="logo-img"
       alt="Logo 2º BPM/I"
-      onerror="this.parentElement.style.background='#1a1f2c'"
     />
   </div>
 
@@ -235,6 +225,21 @@
   </div>
 
 </div>
+
+<script>
+  (function () {
+    var img = document.getElementById('logo-img');
+    var url = 'https://github.com/user-attachments/assets/8b241a65-31ed-4644-a66e-ea1a9167b4ae';
+
+    fetch(url)
+      .then(function (r) { return r.blob(); })
+      .then(function (blob) {
+        img.src = URL.createObjectURL(blob);
+      })
+      .catch(function () {
+        img.src = url;
+      });
+  })();
+</script>
 </body>
 </html>
-
