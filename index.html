@@ -45,7 +45,7 @@
     .watermark {
       position: fixed;
       inset: 0;
-      background-image: url('https://github.com/user-attachments/assets/03736def-8e11-49a7-b085-8760e3bd8416');
+      background-image: url('https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/Gemini_Generated_Image_s8li6ms8li6ms8li.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center center;
@@ -146,6 +146,13 @@
     @keyframes badgePulse {
       0%, 100% { box-shadow: 0 0 0 4px rgba(192,0,12,0.15), 0 8px 24px rgba(0,0,0,0.5); }
       50%       { box-shadow: 0 0 0 8px rgba(192,0,12,0.25), 0 8px 32px rgba(0,0,0,0.5); }
+    }
+
+    .badge-img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(192,0,12,0.5));
     }
 
     .badge-icon {
@@ -417,7 +424,14 @@
       .buttons-section { padding: 24px 20px 28px; }
       .footer    { padding: 14px 20px 16px; }
       .badge-wrap { width: 76px; height: 76px; }
-      .badge-icon { font-size: 32px; }
+      .badge-img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(192,0,12,0.5));
+    }
+
+    .badge-icon { font-size: 32px; }
     }
 
     /* ── RIPPLE ── */
@@ -452,7 +466,7 @@
     <!-- HEADER -->
     <div class="header">
       <div class="badge-wrap">
-        <span class="badge-icon">⭐</span>
+        <img class="badge-img" src="LINK_GITHUB_AQUI" alt="Escudo PMESP" />
       </div>
       <div class="org-label">Estado de São Paulo</div>
       <h1 class="title">Polícia Militar</h1>
@@ -526,6 +540,4 @@
   </script>
 
 </body>
-
 </html>
-
