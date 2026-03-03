@@ -2,542 +2,293 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2º BPM/I — Polícia Militar · São Paulo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel TCI 2026 – 2º BPM/I</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@700;900&family=Exo+2:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --red:      #c0152b;
+      --gold:     #c9a227;
+      --silver:   #b8c0cc;
+      --dark:     #0d0f14;
+      --panel:    #14181f;
+      --neon-red: #ff2244;
+      --neon-blu: #1e90ff;
+      --neon-gld: #ffd700;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --red:       #c0000c;
-      --red-dark:  #8a0008;
-      --red-glow:  rgba(192, 0, 12, 0.55);
-      --black:     #0a0a0b;
-      --gray-900:  #111214;
-      --gray-800:  #1a1c1f;
-      --gray-700:  #252729;
-      --gray-600:  #333538;
-      --gray-400:  #8a8d93;
-      --gray-200:  #c8cbd0;
-      --white:     #f0f2f5;
-      --gold:      #c9a84c;
-    }
-
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
-    }
-
     body {
-      background-color: var(--black);
-      font-family: 'Rajdhani', sans-serif;
-      color: var(--white);
+      background: var(--dark);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
+      font-family: 'Exo 2', sans-serif;
+      overflow: hidden;
     }
 
-    /* ── WATERMARK BACKGROUND ── */
-    .watermark {
+    /* animated background grid */
+    body::before {
+      content: '';
       position: fixed;
       inset: 0;
-      background-image: url('https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/Gemini_Generated_Image_s8li6ms8li6ms8li.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-      opacity: 0.07;
-      filter: grayscale(100%) contrast(1.2);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ── GRID OVERLAY ── */
-    .grid-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(192,0,12,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(192,0,12,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-
-    /* ── AMBIENT LIGHT ── */
-    .ambient {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
       background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(192,0,12,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 50% 100%, rgba(192,0,12,0.07) 0%, transparent 60%);
+        repeating-linear-gradient(0deg,   transparent, transparent 59px, rgba(30,144,255,.04) 60px),
+        repeating-linear-gradient(90deg,  transparent, transparent 59px, rgba(30,144,255,.04) 60px);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* ── MAIN CARD ── */
+    /* scanlines overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,.18) 3px,
+        rgba(0,0,0,.18) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .card {
       position: relative;
-      z-index: 10;
-      width: min(480px, 94vw);
-      background: linear-gradient(160deg, var(--gray-800) 0%, var(--gray-900) 60%, #0d0e10 100%);
-      border: 1px solid var(--gray-600);
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 40px 80px rgba(0,0,0,0.7),
-        0 0 60px rgba(192,0,12,0.08);
-      animation: cardIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(32px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0)   scale(1);    }
-    }
-
-    /* ── TOP STRIPE ── */
-    .stripe {
-      height: 5px;
-      background: linear-gradient(90deg, var(--red-dark), var(--red), #ff2030, var(--red), var(--red-dark));
-      background-size: 200% 100%;
-      animation: stripeShift 4s linear infinite;
-    }
-
-    @keyframes stripeShift {
-      0%   { background-position: 0% 0%; }
-      100% { background-position: 200% 0%; }
-    }
-
-    /* ── HEADER ── */
-    .header {
-      padding: 36px 32px 28px;
-      text-align: center;
-      position: relative;
-      border-bottom: 1px solid var(--gray-700);
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(192,0,12,0.12), transparent 70%);
-      pointer-events: none;
-    }
-
-    .badge-wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 2px solid var(--gray-600);
-      background: radial-gradient(circle, var(--gray-700) 0%, var(--gray-900) 100%);
-      box-shadow: 0 0 0 4px rgba(192,0,12,0.15), 0 8px 24px rgba(0,0,0,0.5);
-      margin-bottom: 20px;
-      position: relative;
-      animation: badgePulse 3s ease-in-out infinite;
-    }
-
-    @keyframes badgePulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(192,0,12,0.15), 0 8px 24px rgba(0,0,0,0.5); }
-      50%       { box-shadow: 0 0 0 8px rgba(192,0,12,0.25), 0 8px 32px rgba(0,0,0,0.5); }
-    }
-
-    .badge-img {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(192,0,12,0.5));
-    }
-
-    .badge-icon {
-      font-size: 38px;
-      filter: drop-shadow(0 0 8px rgba(192,0,12,0.6));
-    }
-
-    .org-label {
-      font-family: 'Orbitron', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      opacity: 0.9;
-    }
-
-    .title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(28px, 8vw, 40px);
-      letter-spacing: 2px;
-      line-height: 1;
-      color: var(--white);
-      text-shadow: 0 0 30px rgba(255,255,255,0.1);
-      margin-bottom: 4px;
-    }
-
-    .subtitle {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(18px, 5vw, 24px);
-      letter-spacing: 4px;
-      color: var(--red);
-      text-shadow: 0 0 20px var(--red-glow);
-    }
-
-    .meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .meta-pill {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray-400);
-      padding: 4px 12px;
-      border: 1px solid var(--gray-600);
-      border-radius: 2px;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .divider-line {
-      width: 40px;
-      height: 1px;
-      background: var(--gray-600);
-    }
-
-    /* ── BUTTONS SECTION ── */
-    .buttons-section {
-      padding: 32px 32px 36px;
+      z-index: 2;
+      width: 420px;
+      background: linear-gradient(160deg, #1a1f2c 0%, #0d1017 100%);
+      border: 1px solid rgba(200,162,39,.25);
+      border-radius: 18px;
+      padding: 36px 32px 40px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: center;
+      gap: 0;
+
+      /* outer gold glow */
+      box-shadow:
+        0 0 0 1px rgba(201,162,39,.15),
+        0 0 40px rgba(201,162,39,.12),
+        0 8px 60px rgba(0,0,0,.8),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    /* top accent bar */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 2px;
+    }
+
+    /* ── hero image ── */
+    .hero-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0,0,0,.6);
+    }
+
+    .hero-wrapper img {
+      width: 100%;
+      display: block;
+      filter: brightness(.93) contrast(1.05);
+    }
+
+    /* title overlay */
+    .hero-title {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 14px 16px 10px;
+      background: linear-gradient(to bottom, rgba(0,0,0,.78) 60%, transparent);
+      text-align: center;
+    }
+
+    .hero-title span {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow:
+        0 0 10px var(--neon-blu),
+        0 0 24px rgba(30,144,255,.55),
+        0 2px 4px rgba(0,0,0,.9);
+    }
+
+    /* ── divider ── */
+    .divider {
+      width: 80%;
+      height: 1px;
+      margin: 26px 0 22px;
+      background: linear-gradient(90deg, transparent, rgba(201,162,39,.5), transparent);
+    }
+
+    /* ── buttons ── */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
     }
 
     .btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 20px 24px;
-      border-radius: 3px;
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
       border: none;
+      border-radius: 50px;
       cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       text-decoration: none;
-      overflow: hidden;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      -webkit-tap-highlight-color: transparent;
+      text-align: center;
+      position: relative;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      outline: none;
+      user-select: none;
     }
 
-    .btn:hover  { transform: translateY(-2px); }
-    .btn:active { transform: translateY(1px) scale(0.99); }
-
-    /* PRIMARY — Videos Instrução */
-    .btn-primary {
-      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, #e8000d 100%);
-      box-shadow: 0 4px 20px rgba(192,0,12,0.4), 0 1px 0 rgba(255,255,255,0.1) inset;
+    /* ── Video Instrução (neon blue) ── */
+    .btn-video {
+      background: linear-gradient(135deg, #0a1a33 0%, #0e2244 100%);
+      color: #7ec8ff;
+      border: 1.5px solid rgba(30,144,255,.5);
+      box-shadow:
+        0 0 8px  rgba(30,144,255,.45),
+        0 0 20px rgba(30,144,255,.25),
+        0 0 45px rgba(30,144,255,.12),
+        inset 0 0 12px rgba(30,144,255,.08);
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 8px 32px rgba(192,0,12,0.6), 0 1px 0 rgba(255,255,255,0.1) inset;
+    .btn-video:hover {
+      transform: translateY(-3px) scale(1.015);
+      box-shadow:
+        0 0 14px rgba(30,144,255,.8),
+        0 0 35px rgba(30,144,255,.5),
+        0 0 65px rgba(30,144,255,.25),
+        inset 0 0 20px rgba(30,144,255,.15);
+      color: #cceeff;
+      filter: brightness(1.15);
     }
 
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
+    .btn-video:active { transform: translateY(0) scale(.99); }
+
+    /* ── Controle de Treinamento (neon red) ── */
+    .btn-ctrl {
+      background: linear-gradient(135deg, #1e0a0a 0%, #2d0d0d 100%);
+      color: #ff8899;
+      border: 1.5px solid rgba(255,34,68,.5);
+      box-shadow:
+        0 0 8px  rgba(255,34,68,.45),
+        0 0 20px rgba(255,34,68,.25),
+        0 0 45px rgba(255,34,68,.12),
+        inset 0 0 12px rgba(255,34,68,.08);
     }
 
-    .btn-primary:hover::before { transform: translateX(100%); }
-
-    /* SECONDARY — Controle de Treinamento */
-    .btn-secondary {
-      background: linear-gradient(135deg, var(--gray-700) 0%, var(--gray-800) 100%);
-      border: 1px solid var(--gray-600);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05) inset;
+    .btn-ctrl:hover {
+      transform: translateY(-3px) scale(1.015);
+      box-shadow:
+        0 0 14px rgba(255,34,68,.8),
+        0 0 35px rgba(255,34,68,.5),
+        0 0 65px rgba(255,34,68,.25),
+        inset 0 0 20px rgba(255,34,68,.15);
+      color: #ffc0cc;
+      filter: brightness(1.15);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--red);
-      box-shadow: 0 4px 20px rgba(192,0,12,0.2), 0 0 0 1px rgba(192,0,12,0.3);
-    }
+    .btn-ctrl:active { transform: translateY(0) scale(.99); }
 
-    .btn-secondary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(192,0,12,0.05) 50%, transparent 100%);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-
-    .btn-secondary:hover::before { transform: translateX(100%); }
-
-    /* ── ICON BOX ── */
+    /* icon inside button */
     .btn-icon {
-      flex-shrink: 0;
-      width: 46px;
-      height: 46px;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      position: relative;
-      z-index: 1;
+      margin-right: 10px;
+      font-size: 1.2em;
+      vertical-align: middle;
     }
 
-    .btn-primary .btn-icon {
-      background: rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .btn-secondary .btn-icon {
-      background: rgba(192,0,12,0.12);
-      border: 1px solid rgba(192,0,12,0.3);
-    }
-
-    /* ── BUTTON TEXT ── */
-    .btn-text {
-      flex: 1;
-      text-align: left;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-label {
-      display: block;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(18px, 5vw, 22px);
-      letter-spacing: 1.5px;
-      color: var(--white);
-      line-height: 1.1;
-    }
-
-    .btn-desc {
-      display: block;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-top: 3px;
-    }
-
-    /* ── ARROW ── */
-    .btn-arrow {
-      flex-shrink: 0;
-      font-size: 18px;
-      color: rgba(255,255,255,0.4);
-      position: relative;
-      z-index: 1;
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .btn:hover .btn-arrow {
-      transform: translateX(4px);
-      color: rgba(255,255,255,0.8);
-    }
-
-    /* ── FOOTER ── */
+    /* ── footer ── */
     .footer {
-      padding: 16px 32px 20px;
-      border-top: 1px solid var(--gray-700);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .footer-text {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
+      margin-top: 28px;
+      font-size: .7rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--gray-600);
+      color: rgba(184,192,204,.3);
+      text-align: center;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 6px var(--red-glow);
-      animation: blink 1.8s ease-in-out infinite;
+    /* pulse ring animation on card */
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(201,162,39,.18), 0 0 40px rgba(201,162,39,.12), 0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
+      50%  { box-shadow: 0 0 0 6px rgba(201,162,39,.06), 0 0 55px rgba(201,162,39,.2),  0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
+      100% { box-shadow: 0 0 0 0 rgba(201,162,39,.18), 0 0 40px rgba(201,162,39,.12), 0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
-    }
+    .card { animation: pulse-ring 4s ease-in-out infinite; }
 
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* flicker on title */
+    @keyframes flicker {
+      0%,100% { opacity:1; }
+      92%      { opacity:1; }
+      93%      { opacity:.7; }
+      94%      { opacity:1; }
+      97%      { opacity:.85; }
+      98%      { opacity:1; }
     }
-
-    /* ── SCAN LINE ── */
-    .scan-line {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(192,0,12,0.6), transparent);
-      animation: scanLine 3.5s linear infinite;
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    @keyframes scanLine {
-      0%   { top: 0%; }
-      100% { top: 100%; }
-    }
-
-    /* ── CORNER ACCENTS ── */
-    .corner { position: absolute; width: 14px; height: 14px; z-index: 2; }
-    .corner-tl { top: 8px; left: 8px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
-    .corner-tr { top: 8px; right: 8px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
-    .corner-bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--red); border-left: 2px solid var(--red); }
-    .corner-br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--red); border-right: 2px solid var(--red); }
-
-    /* ── MOBILE ── */
-    @media (max-width: 420px) {
-      .header    { padding: 28px 20px 22px; }
-      .buttons-section { padding: 24px 20px 28px; }
-      .footer    { padding: 14px 20px 16px; }
-      .badge-wrap { width: 76px; height: 76px; }
-      .badge-img {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(192,0,12,0.5));
-    }
-
-    .badge-icon { font-size: 32px; }
-    }
-
-    /* ── RIPPLE ── */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      transform: scale(0);
-      animation: rippleAnim 0.6s linear;
-      pointer-events: none;
-    }
-    @keyframes rippleAnim {
-      to { transform: scale(4); opacity: 0; }
-    }
+    .hero-title span { animation: flicker 6s infinite; }
   </style>
 </head>
 <body>
 
-  <div class="watermark"></div>
-  <div class="grid-overlay"></div>
-  <div class="ambient"></div>
+<div class="card">
 
-  <div class="card">
-    <div class="scan-line"></div>
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
-
-    <div class="stripe"></div>
-
-    <!-- HEADER -->
-    <div class="header">
-      <div class="badge-wrap">
-        <img class="badge-img" src="LINK_GITHUB_AQUI" alt="Escudo PMESP" />
-      </div>
-      <div class="org-label">Estado de São Paulo</div>
-      <h1 class="title">Polícia Militar</h1>
-      <div class="subtitle">2º BPM/I</div>
-      <div class="meta-row">
-        <div class="divider-line"></div>
-        <span class="meta-pill">São Paulo</span>
-        <div class="divider-line"></div>
-      </div>
+  <div class="hero-wrapper">
+    <img
+      src="https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPOSITORIO/main/Gemini_Generated_Image_s8li6ms8li6ms8li.png"
+      alt="Brasão 2º BPM/I – Polícia Militar São Paulo"
+      onerror="this.style.opacity='.4'"
+    />
+    <div class="hero-title">
+      <span>Painel TCI 2026</span>
     </div>
-
-    <!-- BUTTONS -->
-    <div class="buttons-section">
-
-      <a
-        href="https://5ciapm.github.io/treinamentotci"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-primary"
-        id="btn-videos"
-      >
-        <div class="btn-icon">▶</div>
-        <div class="btn-text">
-          <span class="btn-label">Vídeos Instrução</span>
-          <span class="btn-desc">Acessar material de treinamento</span>
-        </div>
-        <span class="btn-arrow">→</span>
-      </a>
-
-      <a
-        href="https://forms.gle/RxdyZQzJHj3FwNK26"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-secondary"
-        id="btn-controle"
-      >
-        <div class="btn-icon">📋</div>
-        <div class="btn-text">
-          <span class="btn-label">Controle de Treinamento</span>
-          <span class="btn-desc">Registrar participação</span>
-        </div>
-        <span class="btn-arrow">→</span>
-      </a>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      <span class="footer-text">Sistema Interno · 2º BPM/I</span>
-      <div class="footer-right">
-        <span class="footer-text">Online</span>
-        <div class="status-dot"></div>
-      </div>
-    </div>
-
   </div>
 
-  <script>
-    // Ripple effect on buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const r = document.createElement('span');
-        r.classList.add('ripple');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
-        this.appendChild(r);
-        setTimeout(() => r.remove(), 700);
-      });
-    });
-  </script>
+  <div class="divider"></div>
+
+  <div class="btn-group">
+    <a
+      class="btn btn-video"
+      href="https://5ciapm.github.io/treinamentotci/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="btn-icon">▶</span>Vídeo Instrução
+    </a>
+
+    <a
+      class="btn btn-ctrl"
+      href="https://forms.gle/3oy7aJxm5Fjba2XT7"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="btn-icon">📋</span>Controle de Treinamento
+    </a>
+  </div>
+
+  <div class="footer">2º BPM/I &nbsp;·&nbsp; Polícia Militar &nbsp;·&nbsp; São Paulo</div>
+
+</div>
 
 </body>
 </html>
