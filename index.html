@@ -1,155 +1,169 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel TCI 2026 – 2º BPM/I</title>
-  <link href="https://github.com/5CiaPM/paineltci/issues/1"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Painel TCI 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Exo+2:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --red:      #c0152b;
       --gold:     #c9a227;
-      --silver:   #b8c0cc;
-      --dark:     #0d0f14;
-      --panel:    #14181f;
-      --neon-red: #ff2244;
+      --dark:     #0b0d12;
+      --panel:    #13171f;
       --neon-blu: #1e90ff;
-      --neon-gld: #ffd700;
+      --neon-red: #ff2244;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
+      width: 100%; height: 100%;
       background: var(--dark);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-family: 'Exo 2', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    /* animated background grid */
+    /* grid background */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
-        repeating-linear-gradient(0deg,   transparent, transparent 59px, rgba(30,144,255,.04) 60px),
-        repeating-linear-gradient(90deg,  transparent, transparent 59px, rgba(30,144,255,.04) 60px);
-      pointer-events: none;
-      z-index: 0;
+        repeating-linear-gradient(0deg,   transparent, transparent 49px, rgba(30,144,255,.04) 50px),
+        repeating-linear-gradient(90deg,  transparent, transparent 49px, rgba(30,144,255,.04) 50px);
+      pointer-events: none; z-index: 0;
     }
 
-    /* scanlines overlay */
+    /* scanlines */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: repeating-linear-gradient(
         to bottom,
-        transparent 0px,
-        transparent 3px,
-        rgba(0,0,0,.18) 3px,
-        rgba(0,0,0,.18) 4px
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,.15) 3px, rgba(0,0,0,.15) 4px
       );
-      pointer-events: none;
-      z-index: 1;
+      pointer-events: none; z-index: 1;
     }
 
-    .card {
-      position: relative;
-      z-index: 2;
-      width: 420px;
-      background: linear-gradient(160deg, #1a1f2c 0%, #0d1017 100%);
-      border: 1px solid rgba(200,162,39,.25);
-      border-radius: 18px;
-      padding: 36px 32px 40px;
+    .wrapper {
+      position: relative; z-index: 2;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      padding: 28px 20px 36px;
       gap: 0;
-
-      /* outer gold glow */
-      box-shadow:
-        0 0 0 1px rgba(201,162,39,.15),
-        0 0 40px rgba(201,162,39,.12),
-        0 8px 60px rgba(0,0,0,.8),
-        inset 0 1px 0 rgba(255,255,255,.06);
     }
 
-    /* top accent bar */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 10%; right: 10%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      border-radius: 2px;
-    }
-
-    /* ── hero image ── */
-    .hero-wrapper {
-      position: relative;
-      width: 100%;
-      border-radius: 12px;
+    /* ── LOGO ── */
+    .logo-wrap {
+      width: 110px; height: 110px;
+      border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 4px 30px rgba(0,0,0,.6);
+      border: 2px solid rgba(201,162,39,.45);
+      box-shadow:
+        0 0 0 4px rgba(201,162,39,.1),
+        0 0 20px rgba(201,162,39,.3),
+        0 0 45px rgba(201,162,39,.12);
+      flex-shrink: 0;
+      margin-bottom: 14px;
+      animation: logo-pulse 4s ease-in-out infinite;
     }
 
-    .hero-wrapper img {
-      width: 100%;
+    @keyframes logo-pulse {
+      0%,100% { box-shadow: 0 0 0 4px rgba(201,162,39,.1), 0 0 20px rgba(201,162,39,.3),  0 0 45px rgba(201,162,39,.12); }
+      50%      { box-shadow: 0 0 0 6px rgba(201,162,39,.18),0 0 30px rgba(201,162,39,.5),  0 0 65px rgba(201,162,39,.22); }
+    }
+
+    .logo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
       display: block;
-      filter: brightness(.93) contrast(1.05);
     }
 
-    /* title overlay */
-    .hero-title {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      padding: 14px 16px 10px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.78) 60%, transparent);
-      text-align: center;
-    }
-
-    .hero-title span {
+    /* ── TITLE ── */
+    .title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.25rem;
+      font-size: clamp(1.1rem, 5vw, 1.5rem);
       font-weight: 900;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: #fff;
+      text-align: center;
       text-shadow:
         0 0 10px var(--neon-blu),
-        0 0 24px rgba(30,144,255,.55),
+        0 0 28px rgba(30,144,255,.55),
         0 2px 4px rgba(0,0,0,.9);
+      margin-bottom: 6px;
+      animation: flicker 7s infinite;
     }
 
-    /* ── divider ── */
+    .subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(201,162,39,.65);
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    @keyframes flicker {
+      0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.65} 94%{opacity:1} 97%{opacity:.8} 98%{opacity:1}
+    }
+
+    /* ── HERO IMAGE ── */
+    .hero-wrap {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(201,162,39,.2);
+      box-shadow:
+        0 0 30px rgba(0,0,0,.7),
+        0 0 0 1px rgba(255,255,255,.04) inset;
+      margin-bottom: 26px;
+    }
+
+    .hero-wrap img {
+      width: 100%;
+      display: block;
+      filter: brightness(.92) contrast(1.06);
+    }
+
+    /* ── DIVIDER ── */
     .divider {
-      width: 80%;
+      width: 70%;
+      max-width: 280px;
       height: 1px;
-      margin: 26px 0 22px;
-      background: linear-gradient(90deg, transparent, rgba(201,162,39,.5), transparent);
+      background: linear-gradient(90deg, transparent, rgba(201,162,39,.55), transparent);
+      margin-bottom: 26px;
     }
 
-    /* ── buttons ── */
+    /* ── BUTTONS ── */
     .btn-group {
       display: flex;
       flex-direction: column;
       gap: 18px;
       width: 100%;
+      max-width: 420px;
     }
 
     .btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       width: 100%;
-      padding: 16px 24px;
+      padding: 18px 20px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 4vw, 1.15rem);
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -157,111 +171,78 @@
       text-align: center;
       position: relative;
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      outline: none;
-      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    /* ── Video Instrução (neon blue) ── */
+    /* active press effect for touch */
+    .btn:active {
+      transform: scale(.97);
+    }
+
+    /* Vídeo Instrução – neon azul */
     .btn-video {
-      background: linear-gradient(135deg, #0a1a33 0%, #0e2244 100%);
+      background: linear-gradient(135deg, #080f1e 0%, #0c1a30 100%);
       color: #7ec8ff;
-      border: 1.5px solid rgba(30,144,255,.5);
+      border: 1.5px solid rgba(30,144,255,.55);
       box-shadow:
-        0 0 8px  rgba(30,144,255,.45),
-        0 0 20px rgba(30,144,255,.25),
-        0 0 45px rgba(30,144,255,.12),
-        inset 0 0 12px rgba(30,144,255,.08);
+        0 0 8px  rgba(30,144,255,.5),
+        0 0 22px rgba(30,144,255,.28),
+        0 0 50px rgba(30,144,255,.12),
+        inset 0 0 14px rgba(30,144,255,.08);
     }
 
-    .btn-video:hover {
-      transform: translateY(-3px) scale(1.015);
-      box-shadow:
-        0 0 14px rgba(30,144,255,.8),
-        0 0 35px rgba(30,144,255,.5),
-        0 0 65px rgba(30,144,255,.25),
-        inset 0 0 20px rgba(30,144,255,.15);
-      color: #cceeff;
-      filter: brightness(1.15);
-    }
-
-    .btn-video:active { transform: translateY(0) scale(.99); }
-
-    /* ── Controle de Treinamento (neon red) ── */
+    /* Controle de Treinamento – neon vermelho */
     .btn-ctrl {
-      background: linear-gradient(135deg, #1e0a0a 0%, #2d0d0d 100%);
+      background: linear-gradient(135deg, #180808 0%, #270b0b 100%);
       color: #ff8899;
-      border: 1.5px solid rgba(255,34,68,.5);
+      border: 1.5px solid rgba(255,34,68,.55);
       box-shadow:
-        0 0 8px  rgba(255,34,68,.45),
-        0 0 20px rgba(255,34,68,.25),
-        0 0 45px rgba(255,34,68,.12),
-        inset 0 0 12px rgba(255,34,68,.08);
+        0 0 8px  rgba(255,34,68,.5),
+        0 0 22px rgba(255,34,68,.28),
+        0 0 50px rgba(255,34,68,.12),
+        inset 0 0 14px rgba(255,34,68,.08);
     }
 
-    .btn-ctrl:hover {
-      transform: translateY(-3px) scale(1.015);
-      box-shadow:
-        0 0 14px rgba(255,34,68,.8),
-        0 0 35px rgba(255,34,68,.5),
-        0 0 65px rgba(255,34,68,.25),
-        inset 0 0 20px rgba(255,34,68,.15);
-      color: #ffc0cc;
-      filter: brightness(1.15);
-    }
-
-    .btn-ctrl:active { transform: translateY(0) scale(.99); }
-
-    /* icon inside button */
     .btn-icon {
-      margin-right: 10px;
-      font-size: 1.2em;
-      vertical-align: middle;
+      font-size: 1.25em;
+      flex-shrink: 0;
     }
 
-    /* ── footer ── */
+    /* ── FOOTER ── */
     .footer {
-      margin-top: 28px;
-      font-size: .7rem;
-      letter-spacing: .12em;
+      margin-top: 30px;
+      font-size: .65rem;
+      letter-spacing: .15em;
       text-transform: uppercase;
-      color: rgba(184,192,204,.3);
+      color: rgba(184,192,204,.25);
       text-align: center;
+      line-height: 1.8;
     }
-
-    /* pulse ring animation on card */
-    @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0 rgba(201,162,39,.18), 0 0 40px rgba(201,162,39,.12), 0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
-      50%  { box-shadow: 0 0 0 6px rgba(201,162,39,.06), 0 0 55px rgba(201,162,39,.2),  0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
-      100% { box-shadow: 0 0 0 0 rgba(201,162,39,.18), 0 0 40px rgba(201,162,39,.12), 0 8px 60px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
-    }
-
-    .card { animation: pulse-ring 4s ease-in-out infinite; }
-
-    /* flicker on title */
-    @keyframes flicker {
-      0%,100% { opacity:1; }
-      92%      { opacity:1; }
-      93%      { opacity:.7; }
-      94%      { opacity:1; }
-      97%      { opacity:.85; }
-      98%      { opacity:1; }
-    }
-    .hero-title span { animation: flicker 6s infinite; }
   </style>
 </head>
 <body>
+<div class="wrapper">
 
-<div class="card">
+  <!-- LOGO do GitHub -->
+  <div class="logo-wrap">
+    <img
+      src="https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPOSITORIO/main/logo.png"
+      alt="Logo 2º BPM/I"
+      onerror="this.parentElement.style.background='#1a1f2c'"
+    />
+  </div>
 
-  <div class="hero-wrapper">
+  <div class="title">Painel TCI 2026</div>
+  <div class="subtitle">2º BPM/I &nbsp;·&nbsp; Polícia Militar &nbsp;·&nbsp; SP</div>
+
+  <!-- IMAGEM PRINCIPAL do GitHub -->
+  <div class="hero-wrap">
     <img
       src="https://github.com/5CiaPM/paineltci/issues/2"
-      alt="Brasão 2º BPM/I – Polícia Militar São Paulo"
-      onerror="this.style.opacity='.4'"
+      alt="Brasão 2º BPM/I"
+      onerror="this.parentElement.style.display='none'"
     />
-    <div class="hero-title">
-      <span>Painel TCI 2026</span>
-    </div>
   </div>
 
   <div class="divider"></div>
@@ -273,24 +254,26 @@
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span class="btn-icon">▶</span>Vídeo Instrução
+      <span class="btn-icon">▶</span>
+      Vídeo Instrução
     </a>
 
     <a
       class="btn btn-ctrl"
-      href="https://forms.gle/3oy7aJxm5Fjba2XT7"
+      href="https://forms.gle/8pGX8b8JbQA5WxoRA"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span class="btn-icon">📋</span>Controle de Treinamento
+      <span class="btn-icon">📋</span>
+      Controle de Treinamento
     </a>
   </div>
 
-  <div class="footer">2º BPM/I &nbsp;·&nbsp; Polícia Militar &nbsp;·&nbsp; São Paulo</div>
+  <div class="footer">
+    2º Batalhão de Polícia Militar do Interior<br/>
+    São Paulo &nbsp;·&nbsp; 2026
+  </div>
 
 </div>
-
 </body>
 </html>
-
-
