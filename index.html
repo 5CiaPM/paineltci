@@ -4,7 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Painel TCI 2026</title>
-  <link href="https://github.com/5CiaPM/paineltci/issues/2#issue-4017941202" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --red:      #c0152b;
@@ -59,28 +61,15 @@
 
     /* ── LOGO ── */
     .logo-wrap {
-      width: 110px; height: 110px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(201,162,39,.45);
-      box-shadow:
-        0 0 0 4px rgba(201,162,39,.1),
-        0 0 20px rgba(201,162,39,.3),
-        0 0 45px rgba(201,162,39,.12);
+      width: 150px;
       flex-shrink: 0;
       margin-bottom: 14px;
-      animation: logo-pulse 4s ease-in-out infinite;
-    }
-
-    @keyframes logo-pulse {
-      0%,100% { box-shadow: 0 0 0 4px rgba(201,162,39,.1), 0 0 20px rgba(201,162,39,.3),  0 0 45px rgba(201,162,39,.12); }
-      50%      { box-shadow: 0 0 0 6px rgba(201,162,39,.18),0 0 30px rgba(201,162,39,.5),  0 0 65px rgba(201,162,39,.22); }
     }
 
     .logo-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
+      width: 100%;
       display: block;
+      filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 12px rgba(201,162,39,.6));
     }
 
     /* ── TITLE ── */
@@ -113,25 +102,6 @@
 
     @keyframes flicker {
       0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.65} 94%{opacity:1} 97%{opacity:.8} 98%{opacity:1}
-    }
-
-    /* ── HERO IMAGE ── */
-    .hero-wrap {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(201,162,39,.2);
-      box-shadow:
-        0 0 30px rgba(0,0,0,.7),
-        0 0 0 1px rgba(255,255,255,.04) inset;
-      margin-bottom: 26px;
-    }
-
-    .hero-wrap img {
-      width: 100%;
-      display: block;
-      filter: brightness(.92) contrast(1.06);
     }
 
     /* ── DIVIDER ── */
@@ -175,7 +145,6 @@
       touch-action: manipulation;
     }
 
-    /* active press effect for touch */
     .btn:active {
       transform: scale(.97);
     }
@@ -224,10 +193,10 @@
 <body>
 <div class="wrapper">
 
-  <!-- LOGO do GitHub -->
+  <!-- LOGO -->
   <div class="logo-wrap">
     <img
-      src="https://github.com/5CiaPM/paineltci/issues/2#issue-4017941202"
+      src="https://private-user-images.githubusercontent.com/202640485/557653329-8b241a65-31ed-4644-a66e-ea1a9167b4ae.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzI1NjY1NjgsIm5iZiI6MTc3MjU2NjI2OCwicGF0aCI6Ii8yMDI2NDA0ODUvNTU3NjUzMzI5LThiMjQxYTY1LTMxZWQtNDY0NC1hNjZlLWVhMWE5MTY3YjRhZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzAzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMwM1QxOTMxMDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02YWE2MGQ5MjVlMGM2Y2FhYmU2MTAxOGExYTc0NmE5MzliMzEyYjg3ZWQ1YmZjNWU3ODM3OGJlNzhhNTZiMDliJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.3_IkxBgc4VQ-BCDsMG2iy-wME9CtTHqV8uiR7vt99wU"
       alt="Logo 2º BPM/I"
       onerror="this.parentElement.style.background='#1a1f2c'"
     />
@@ -235,15 +204,6 @@
 
   <div class="title">Painel TCI 2026</div>
   <div class="subtitle">2º BPM/I &nbsp;·&nbsp; Polícia Militar &nbsp;·&nbsp; SP</div>
-
-  <!-- IMAGEM PRINCIPAL do GitHub -->
-  <div class="hero-wrap">
-    <img
-      src="https://github.com/5CiaPM/paineltci/issues/2"
-      alt="Brasão 2º BPM/I"
-      onerror="this.parentElement.style.display='none'"
-    />
-  </div>
 
   <div class="divider"></div>
 
@@ -277,5 +237,3 @@
 </div>
 </body>
 </html>
-
-
